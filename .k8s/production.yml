@@ -1,0 +1,34 @@
+firedev:
+  general:
+    environment: production
+    repoName: rs-help-frontend
+    repoGroup: sistemas-internos
+    version: #VERSION#
+  apps:
+    - name: rs-help-frontend
+      replicas: 1
+      resources:
+        limits:
+          cpu: 500m
+          memory: 250Mi
+        requests:
+          cpu: 20m
+          memory: 64Mi
+      service:
+        healthcheck:
+          initialDelaySeconds: 5
+          interval: 10
+          path: /
+          port: 80
+          timeoutSeconds: 5
+        ports:
+          containerPort: 80
+          name: http
+        ingress:
+          - name: main
+            exposure: public
+            paths:
+              - /
+            https: true
+            hosts:
+              - rsajuda.com.br
